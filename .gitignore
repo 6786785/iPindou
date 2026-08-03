@@ -1,0 +1,30 @@
+# Local signing material and Android build tools
+.build-tools/
+*.jks
+*.keystore
+
+# Generated Android output
+manual-build*/
+android-app/manual-build*/
+android-app/.gradle/
+android-app/app/build/
+android-app/local.properties
+
+# Packaged deliverables belong in GitHub Releases
+*.apk
+*.aab
+*.idsig
+
+# Stale generated asset copy; Gradle reads the root source file directly
+android-app/app/src/main/assets/index-pro.html
+
+# Editor and operating-system files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+node_modules/
+
+# Personal payment images are not part of the application source
+关于/
