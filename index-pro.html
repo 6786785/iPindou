@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no">
@@ -34,6 +34,11 @@
 
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button, a, summary, label, input, select, textarea, canvas, [role="button"], [tabindex] {
+      -webkit-tap-highlight-color: transparent;
     }
 
     html {
@@ -1639,6 +1644,7 @@
       --ease-out: cubic-bezier(.23,1,.32,1);
       --ease-drawer: cubic-bezier(.32,.72,0,1);
       --top-safe: env(safe-area-inset-top, 0px);
+      --preview-rail-safe: 76px;
       color-scheme: light dark;
     }
     html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
@@ -1655,13 +1661,13 @@
     input[type="range"], input[type="checkbox"] { accent-color: var(--accent); }
     .app { display: grid; width: 100%; max-width: none; height: 100dvh; min-height: 0; margin: 0; grid-template: calc(56px + var(--top-safe)) minmax(0,1fr) / minmax(292px, 25vw) minmax(0,1fr); gap: 0; padding: 0; background: var(--bg); }
     .workspace-controls { display: contents; }
-    .workspace-bar { position: relative; z-index: 80; grid-column: 1 / -1; grid-row: 1; display: grid; box-sizing: border-box; grid-template-columns: minmax(150px,1fr) auto auto auto; align-items: center; gap: 8px; height: calc(56px + var(--top-safe)); min-height: calc(56px + var(--top-safe)); padding: var(--top-safe) 10px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: var(--surface); box-shadow: none; }
+    .workspace-bar { position: relative; z-index: 80; grid-column: 1 / -1; grid-row: 1; display: grid; box-sizing: border-box; grid-template-columns: auto auto minmax(150px,1fr) auto auto; align-items: center; gap: 6px; height: calc(56px + var(--top-safe)); min-height: calc(56px + var(--top-safe)); padding: var(--top-safe) 10px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: var(--surface); box-shadow: none; }
     .workspace-identity { min-width: 0; padding: 0; }
     .workspace-title-button { display: flex; width: 100%; min-height: 44px; align-items: center; padding: 0 8px; overflow: hidden; border: 0; background: transparent; text-align: left; }
     .workspace-title { display: block; overflow: hidden; color: var(--text); font-size: 17px; font-weight: 740; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
     .workspace-title.editing { padding: 5px 7px; overflow: visible; border: 1px solid var(--accent); border-radius: 6px; background: var(--surface); text-overflow: clip; white-space: nowrap; cursor: text; }
     .project-status, .mode-switch, .autosave-status { display: none !important; }
-    .history-actions, .project-actions, .landscape-project-actions { display: flex; align-items: center; gap: 2px; }
+    .history-actions, .shared-workspace-actions, .project-actions, .landscape-project-actions { display: flex; align-items: center; gap: 2px; }
     .toolbar-action { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; gap: 6px; padding: 0 9px; border-color: transparent; border-radius: 7px; background: transparent; color: var(--muted); box-shadow: none; }
     .workspace-bar .toolbar-action { border-color: transparent !important; background: transparent !important; box-shadow: none !important; }
     .toolbar-action:hover { color: var(--text); background: var(--surface-2); }
@@ -1709,8 +1715,8 @@
     .remove-background-option input { width: 38px; height: 22px; flex: 0 0 auto; }
     .preview-shell { position: relative; z-index: 1; grid-column: 2; grid-row: 2; display: grid !important; min-width: 0; min-height: 0; height: auto; margin: 0; grid-template: minmax(0,1fr) / minmax(0,1fr); overflow: hidden; border: 0; border-radius: 0; background: var(--bg); box-shadow: none; }
     .preview-stage, .preview-empty-state { grid-column: 1; grid-row: 1; }
-    .preview-stage { min-width: 0; min-height: 0; overflow: hidden; background-color: #E8E3DA; background-image: linear-gradient(45deg,rgba(255,253,248,.55) 25%,transparent 25%),linear-gradient(-45deg,rgba(255,253,248,.55) 25%,transparent 25%),linear-gradient(45deg,transparent 75%,rgba(255,253,248,.55) 75%),linear-gradient(-45deg,transparent 75%,rgba(255,253,248,.55) 75%); background-size: 20px 20px; background-position: 0 0,0 10px,10px -10px,-10px 0; }
-    .preview-empty-state { align-self: center; max-width: 420px; padding: 24px; color: var(--muted); }
+    .preview-stage { min-width: 0; min-height: 0; padding: 18px var(--preview-rail-safe) 18px 18px; overflow: hidden; background-color: #E8E3DA; background-image: linear-gradient(45deg,rgba(255,253,248,.55) 25%,transparent 25%),linear-gradient(-45deg,rgba(255,253,248,.55) 25%,transparent 25%),linear-gradient(45deg,transparent 75%,rgba(255,253,248,.55) 75%),linear-gradient(-45deg,transparent 75%,rgba(255,253,248,.55) 75%); background-size: 20px 20px; background-position: 0 0,0 10px,10px -10px,-10px 0; }
+    .preview-empty-state { align-self: stretch; justify-self: stretch; width: 100%; max-width: none; place-content: center; padding: 24px var(--preview-rail-safe) 24px 24px; color: var(--muted); }
     .preview-empty-state strong { color: var(--text); font-size: 22px; }
     .canvas-tool-rail { position: absolute; top: 12px; right: 12px; z-index: 12; display: flex; width: 46px; flex-direction: column; gap: 3px; padding: 3px; border: 1px solid var(--line); border-radius: 9px; background: color-mix(in srgb,var(--surface) 94%,transparent); box-shadow: 0 8px 22px rgba(57,48,38,.11); }
     .preview-source-toggle, .preview-zoom { display: contents; }
@@ -1779,7 +1785,8 @@
     #smartBoardCanvas, #advancedCropCanvas { border-color: var(--line); background: var(--surface); box-shadow: 0 12px 30px rgba(57,48,38,.13); }
     #smartBoardCanvas, #advancedCropCanvas { min-width: 0 !important; object-fit: contain; }
     #advancedCropCanvas { max-width: 100%; max-height: 100%; }
-    .smart-board-stage { overflow: auto; overscroll-behavior: contain; }
+    .smart-board-stage { overflow: hidden; overscroll-behavior: none; touch-action: none; }
+    .smart-board-view.editing-board .smart-board-stage { overflow: auto; overscroll-behavior: contain; }
     .smart-board-frame { display: grid; width: max-content; height: max-content; min-width: 100%; min-height: 100%; max-width: none; max-height: none; place-items: center; overflow: visible; }
     #advancedCropCanvas.aligning { box-shadow: 0 0 0 3px color-mix(in srgb,var(--accent) 55%,transparent), 0 12px 30px rgba(57,48,38,.13); }
     .crop-fit-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; margin-top: 8px; }
@@ -1794,9 +1801,13 @@
     .blank-dialog-body { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--text); box-shadow: 0 24px 68px rgba(36,36,33,.22); transform-origin: center; }
 
     @media (orientation: landscape) and (max-width: 1120px) {
-      .workspace-bar { grid-template-columns: minmax(120px,1fr) auto auto auto; }
+      .workspace-bar { grid-template-columns: auto auto minmax(100px,1fr) auto auto; }
       .landscape-project-actions .action-label { display: none; }
       .landscape-project-actions .toolbar-action { width: 44px; padding-inline: 0; }
+    }
+
+    @media (orientation: landscape) and (max-width: 900px) {
+      .landscape-project-actions { display: none; }
     }
 
     @media (orientation: landscape) {
@@ -1812,6 +1823,10 @@
     @media (orientation: portrait) {
       .app { position: fixed; inset: 0; display: block; width: 100%; height: 100dvh; padding: 0; overflow: hidden; }
       .workspace-bar { position: fixed; inset: 0 0 auto; z-index: 100; display: grid; height: calc(56px + var(--top-safe)); min-height: calc(56px + var(--top-safe)); grid-template-columns: minmax(0,1fr) auto auto; gap: 0; padding: var(--top-safe) 6px 0; }
+      .history-actions { grid-column: 2; }
+      .workspace-identity { grid-column: 1; grid-row: 1; }
+      .project-actions { grid-column: 3; }
+      .shared-workspace-actions { display: none; }
       .workspace-identity { min-width: 0; }
       .workspace-title-button { padding-inline: 8px; }
       .workspace-title { font-size: 16px; }
@@ -1837,7 +1852,8 @@
       .smart-sidebar, .advanced-crop-sidebar { display: contents; }
       .smart-sidebar-head, .advanced-crop-head { grid-column: 1; grid-row: 1; z-index: 190; box-sizing: border-box; min-height: calc(56px + var(--top-safe)); padding-top: var(--top-safe); border-right: 0; }
       .smart-board-stage, .advanced-crop-stage { grid-column: 1; grid-row: 2; z-index: 1; align-items: start; justify-items: center; padding: 10px; }
-      .preview-empty-state { align-self: start; justify-self: center; margin-top: 12px; }
+      .preview-stage { padding: 10px 66px 10px 10px; }
+      .preview-empty-state { place-content: start center; padding: clamp(70px, 13dvh, 112px) 66px 18px 18px; }
       .fullscreen-controls.focus-inspector { position: fixed; inset: calc(56px + var(--top-safe)) 0 0; z-index: 185; display: block; width: auto; height: calc(100dvh - 56px - var(--top-safe)); padding: 0 14px 24px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; scrollbar-gutter: stable; border-top: 1px solid var(--line); border-radius: 12px 12px 0 0; background: var(--surface); box-shadow: 0 -12px 30px rgba(57,48,38,.13); will-change: transform; touch-action: pan-y; transition: transform 220ms var(--ease-drawer); }
       .focus-inspector[data-snap="collapsed"] { transform: translateY(calc(100% - 56px)); }
       .focus-inspector[data-snap="half"] { transform: translateY(calc(54dvh - 56px)); }
@@ -1875,6 +1891,53 @@
     html[data-theme="dark"] .preview-stage, html[data-theme="dark"] .smart-board-stage, html[data-theme="dark"] .advanced-crop-stage { background-color:#191B19; background-image:none; }
     html[data-theme="dark"] .canvas-tool-rail, html[data-theme="dark"] .canvas-action-rail { background:rgba(42,40,35,.96); }
 
+    #aboutDialog { width: min(520px, calc(100vw - 20px)); max-width: calc(100vw - 20px); }
+    .about-dialog-body { display: grid; width: 100%; height: min(620px, calc(100dvh - 16px)); grid-template-rows: auto minmax(0,1fr); padding: 22px; overflow: hidden; }
+    .about-head { margin: 0; }
+    .about-head button { width: 44px; min-width: 44px; height: 44px; padding: 0; border-color: transparent; background: var(--surface-2); }
+    .about-head h2 { margin: 0; text-align: center; font-size: 21px; }
+    .about-version { width: 44px; color: var(--muted); font-size: 10px; text-align: right; font-variant-numeric: tabular-nums; }
+    .about-scroll { display: grid; min-height: 0; gap: 0; padding: 0; overflow-y: auto; overscroll-behavior: contain; }
+    .about-intro { display: grid; grid-template-columns: 50px minmax(0,1fr); align-items: center; gap: 14px; padding: 22px 2px 18px; border-bottom: 1px solid var(--line); }
+    .about-bead-mark { display: grid; width: 50px; height: 50px; grid-template-columns: repeat(3,1fr); gap: 3px; padding: 5px; transform: rotate(-4deg); }
+    .about-bead-mark i { border-radius: 4px; background: var(--accent); }
+    .about-bead-mark i:nth-child(2), .about-bead-mark i:nth-child(4), .about-bead-mark i:nth-child(9) { opacity: .18; }
+    .about-intro strong { display: block; margin-bottom: 4px; font-size: 19px; }
+    .about-intro p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .about-link-list { display: grid; }
+    .about-link { display: grid; min-height: 72px; grid-template-columns: 104px minmax(0,1fr) auto; align-items: center; gap: 10px; padding: 8px 2px; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--text); text-align: left; cursor: pointer; }
+    .about-link:hover { color: var(--accent); background: transparent; transform: none; box-shadow: none; }
+    .about-link > span, .about-link > small { color: var(--muted); font-size: 11px; }
+    .about-link > strong { font-size: 14px; }
+    .about-link > small { text-align: right; }
+    .about-link.primary-about-link { color: var(--accent); }
+    .about-support { padding: 20px 2px 0; }
+    .about-support-head { margin-bottom: 14px; }
+    .about-support-head h3 { margin: 0 0 5px; font-size: 15px; }
+    .about-support-head p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .about-qr-grid { display: grid; width: 100%; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; gap: 12px; }
+    .about-qr-grid figure { display: grid; width: 100%; grid-template-rows: clamp(190px,28dvh,260px) auto; justify-items: stretch; margin: 0; padding: 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); cursor: pointer; }
+    .about-qr-grid figure:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .about-qr-grid img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 5px; background: #fff; }
+    .about-qr-grid figcaption { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 3px 2px; }
+    .about-qr-grid figcaption strong { font-size: 13px; }
+    .about-qr-grid figcaption span { color: var(--muted); font-size: 10px; }
+    @media (max-width: 520px) {
+      #aboutDialog { width: calc(100vw - 20px); }
+      .about-dialog-body { height: calc(100dvh - 16px); padding: 14px; }
+      .about-link { grid-template-columns: 82px minmax(0,1fr); }
+      .about-link > small { display: none; }
+      .about-qr-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+      .about-qr-grid figure { grid-template-rows: clamp(140px,24dvh,190px) auto; padding: 6px; }
+      .about-qr-grid figcaption { display: grid; justify-items: center; text-align: center; }
+    }
+    #qrPreviewDialog { width: min(600px, calc(100vw - 24px)); max-width: none; }
+    .qr-preview-body { display: grid; width: 100%; padding: 0; overflow: hidden; }
+    .qr-preview-body .about-head { min-height: 56px; }
+    .qr-preview-content { display: grid; justify-items: center; gap: 14px; padding: 18px; overflow-y: auto; }
+    .qr-preview-content img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(100dvh - 190px); border-radius: 8px; background: #fff; object-fit: contain; }
+    .qr-preview-actions { display: grid; width: min(320px,100%); grid-template-columns: 1fr 1fr; gap: 8px; }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; }
       .panel, .focus-inspector, .workspace-menu-popover, .blank-dialog-body { transition: opacity 100ms ease !important; }
@@ -1885,21 +1948,24 @@
   <main class="app">
     <div class="workspace-controls">
     <nav class="workspace-bar" aria-label="项目与编辑工具">
-      <div class="workspace-identity">
-        <div id="workspaceTitleButton" class="workspace-title-button" role="button" tabindex="0" aria-label="双击编辑当前图纸标题"><strong id="workspaceTitle" class="workspace-title" contenteditable="false">拼豆参考图</strong></div>
-        <span id="projectStatus" class="project-status autosave-status">自动保存已开启</span>
-      </div>
       <div class="history-actions">
         <button id="undoBtn" class="toolbar-action" type="button" disabled title="撤销（Ctrl+Z）" aria-label="撤销"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7 4 12l5 5"/><path d="M4 12h9a7 7 0 0 1 7 7"/></svg><span class="action-label">撤销</span></button>
         <button id="redoBtn" class="toolbar-action" type="button" disabled title="恢复（Ctrl+Y / Ctrl+Shift+Z）" aria-label="恢复"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 7 5 5-5 5"/><path d="M20 12h-9a7 7 0 0 0-7 7"/></svg><span class="action-label">恢复</span></button>
       </div>
-      <div class="landscape-project-actions" aria-label="项目操作">
+      <div class="shared-workspace-actions" aria-label="常用工作区操作">
         <button id="toolbarHistoryBtn" class="toolbar-action" type="button"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg><span class="action-label">项目与步骤</span></button>
         <button id="toolbarSmartBoardBtn" class="toolbar-action" type="button"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg><span class="action-label">智能拼豆板</span></button>
+      </div>
+      <div class="workspace-identity">
+        <div id="workspaceTitleButton" class="workspace-title-button" role="button" tabindex="0" aria-label="双击编辑当前图纸标题"><strong id="workspaceTitle" class="workspace-title" contenteditable="false">拼豆参考图</strong></div>
+        <span id="projectStatus" class="project-status autosave-status">自动保存已开启</span>
+      </div>
+      <div class="landscape-project-actions" aria-label="项目操作">
         <button id="toolbarNewBtn" class="toolbar-action" type="button"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="action-label">新建</span></button>
         <button id="toolbarBlankBtn" class="toolbar-action" type="button"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M15 3v4h4"/></svg><span class="action-label">空白图纸</span></button>
         <button id="toolbarLibraryBtn" class="toolbar-action" type="button"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h7l2 2h9v11H3z"/></svg><span class="action-label">项目库</span></button>
         <button id="toolbarSaveBtn" class="toolbar-action" type="button"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h12l2 2v16H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/></svg><span class="action-label">保存</span></button>
+        <button id="toolbarAboutBtn" class="toolbar-action" type="button"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.01"/></svg><span class="action-label">关于</span></button>
         <button id="toolbarSettingsBtn" class="toolbar-action" type="button"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H3v-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6V3h4v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg><span class="action-label">设置</span></button>
       </div>
       <div class="project-actions">
@@ -1922,6 +1988,7 @@
           <button id="newProjectBtn" type="button"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span>新建项目</span></button>
           <button id="blankProjectBtn" type="button"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M15 3v4h4"/></svg></span><span>新建空白图纸</span></button>
           <button id="uiSettingsBtn" type="button"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1A7 7 0 0 0 14.8 6l-.3-2.6h-4L10.2 6a7 7 0 0 0-1.7 1.1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7 7 0 0 0 1.7 1.1l.3 2.6h4l.3-2.6a7 7 0 0 0 1.7-1.1l2.4 1 2-3.4-2-1.5a7 7 0 0 0 .1-1Z"/></svg></span><span>设置</span></button>
+          <button id="aboutAppBtn" type="button"><span class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.01"/></svg></span><span>关于爱拼豆</span></button>
         </div>
       </div>
       <div class="mode-switch" aria-label="编辑模式">
@@ -2501,6 +2568,52 @@
     </form>
   </dialog>
 
+  <dialog id="aboutDialog" class="blank-dialog">
+    <div class="blank-dialog-body about-dialog-body">
+      <div class="dialog-title-row about-head">
+        <button id="closeAboutDialogBtn" type="button" aria-label="关闭关于爱拼豆">←</button>
+        <h2>关于爱拼豆</h2>
+        <span class="about-version">v3.5.7</span>
+      </div>
+      <div class="about-scroll">
+        <section class="about-intro">
+          <span class="about-bead-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <div><strong>爱拼豆</strong><p>从图片生成、配色、精修、分板到导出的拼豆图纸工作台。</p></div>
+        </section>
+        <section class="about-link-list" aria-label="爱拼豆外部链接">
+          <button class="about-link" type="button" data-external-url="https://qun.qq.com/universal-share/share?ac=1&amp;authKey=GCgkvgIppnMYAauNjYbFX6mVqqBmank3CeevjUG%2F%2Fh5oh1NNop8h8w9vMI4Ujbt4&amp;busi_data=eyJncm91cENvZGUiOiIxMDI3ODE5MjA5IiwidG9rZW4iOiJjTEpDVUNzYjZ0UkQ3a2pZMlMxaktySXlBa2FNcXNyY3dCMHYwT3FiT2xQM2dUYVVKT3NpMGVmRWZmOEhBL1hRIiwidWluIjoiMTkxMzg3MjgxNyJ9&amp;data=cxQvQ1KmDNE4bWRWIGZb_fghyhq5_7q65xgNFTXZDYPMCLAIY4zL071JuS2MP8gP2RlIKG4obSLh4fgzAq2ghw&amp;svctype=4&amp;tempid=h5_group_info"><span>QQ 交流群</span><strong>加入群聊「爱拼豆」</strong><small>群号 1027819209</small></button>
+          <button class="about-link" type="button" data-external-url="https://xhslink.cn/m/2c1UukmofWk"><span>小红书</span><strong>查看个人账号</strong><small>作品与更新记录</small></button>
+          <button class="about-link" type="button" data-external-url="https://m.tb.cn/h.84iuEHn?tk=KF2kgCYkJdu"><span>闲鱼</span><strong>可以来下单捧场欧</strong><small>打开闲鱼主页</small></button>
+          <button class="about-link primary-about-link" type="button" data-external-url="https://wqfedaaq.html2web.com/"><span>下载 App</span><strong>获取本地全功能体验</strong><small>打开官方下载页</small></button>
+        </section>
+        <section class="about-support">
+          <div class="about-support-head"><h3>赞赏作者</h3><p>如果爱拼豆帮你节省了时间，可以请作者喝杯咖啡。赞赏完全自愿，对您有用我就十分开心。</p></div>
+          <div class="about-qr-grid">
+            <figure role="button" tabindex="0" data-qr-src="wechat.jpg" data-qr-asset="wechat.jpg" data-qr-title="微信赞赏码" data-qr-file="爱拼豆-微信赞赏码.jpg"><img src="wechat.jpg" alt="微信赞赏二维码"><figcaption><strong>微信支付</strong><span>点开查看或保存</span></figcaption></figure>
+            <figure role="button" tabindex="0" data-qr-src="alipay.jpg" data-qr-asset="alipay.jpg" data-qr-title="支付宝赞赏码" data-qr-file="爱拼豆-支付宝赞赏码.jpg"><img src="alipay.jpg" alt="支付宝赞赏二维码"><figcaption><strong>支付宝</strong><span>点开查看或保存</span></figcaption></figure>
+          </div>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="qrPreviewDialog" class="blank-dialog">
+    <div class="blank-dialog-body qr-preview-body">
+      <div class="dialog-title-row about-head">
+        <button id="closeQrPreviewBtn" type="button" aria-label="关闭赞赏码预览">←</button>
+        <h2 id="qrPreviewTitle">赞赏码</h2>
+        <span class="about-version" aria-hidden="true"></span>
+      </div>
+      <div class="qr-preview-content">
+        <img id="qrPreviewImage" alt="赞赏二维码">
+        <div class="qr-preview-actions">
+          <button id="cancelQrPreviewBtn" type="button">返回</button>
+          <button id="saveQrImageBtn" class="primary" type="button">保存到本地</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <div id="appToast" class="app-toast" role="status" aria-live="polite"></div>
 
   <dialog id="renameProjectDialog" class="blank-dialog">
@@ -2872,9 +2985,9 @@
     const DEFAULT_WATERMARK = "小红书@施瓦兹曼   闲鱼@皆皆晚安";
     const DEFAULT_UI_PREFS = Object.freeze({
       portraitStartView: "auto",
-      afterGenerateView: "collapse",
+      afterGenerateView: "stay",
       density: "comfortable",
-      theme: "system"
+      theme: "light"
     });
 
     const state = {
@@ -3002,6 +3115,7 @@
     let resizeTimer = null;
     let messageDialogResolve = null;
     let modalPageScrollY = 0;
+    let modalDialogStack = [];
     let workspaceMenuCloseTimer = null;
 
     imageInput.addEventListener("change", loadImage);
@@ -3046,6 +3160,7 @@
     $("toolbarBlankBtn").addEventListener("click", () => $("blankProjectBtn").click());
     $("toolbarLibraryBtn").addEventListener("click", () => $("openProjectBtn").click());
     $("toolbarSaveBtn").addEventListener("click", () => $("saveProjectBtn").click());
+    $("toolbarAboutBtn").addEventListener("click", () => $("aboutAppBtn").click());
     $("toolbarSettingsBtn").addEventListener("click", () => $("uiSettingsBtn").click());
     $("historyPanelBtn").addEventListener("click", () => {
       updateHistoryUI();
@@ -3079,6 +3194,22 @@
       button.addEventListener("click", () => setWorkspaceMenu(false));
     });
     $("uiSettingsBtn").addEventListener("click", openUISettings);
+    $("aboutAppBtn").addEventListener("click", () => showFixedDialog($("aboutDialog")));
+    $("closeAboutDialogBtn").addEventListener("click", () => $("aboutDialog").close());
+    $("closeQrPreviewBtn").addEventListener("click", () => $("qrPreviewDialog").close());
+    $("cancelQrPreviewBtn").addEventListener("click", () => $("qrPreviewDialog").close());
+    $("saveQrImageBtn").addEventListener("click", saveQrPreviewImage);
+    document.querySelectorAll("[data-qr-src]").forEach((card) => {
+      card.addEventListener("click", () => openQrPreview(card));
+      card.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        openQrPreview(card);
+      });
+    });
+    document.querySelectorAll("[data-external-url]").forEach((button) => {
+      button.addEventListener("click", () => openExternalUrl(button.dataset.externalUrl));
+    });
     $("closeUiSettingsBtn").addEventListener("click", () => $("uiSettingsDialog").close());
     $("uiSettingsForm").addEventListener("submit", (event) => {
       event.preventDefault();
@@ -3146,6 +3277,11 @@
     smartBoardCanvas.addEventListener("pointercancel", endSmartBoardGesture);
     smartBoardCanvas.addEventListener("wheel", zoomSmartBoardWithWheel, { passive: false });
     smartBoardView.querySelector(".smart-board-stage").addEventListener("dblclick", fitSmartBoardView);
+    smartBoardView.querySelector(".smart-board-stage").addEventListener("scroll", (event) => {
+      if (state.smartBoard.editing) return;
+      event.currentTarget.scrollLeft = 0;
+      event.currentTarget.scrollTop = 0;
+    });
     $("smartColorSort").addEventListener("change", () => {
       state.smartBoard.colorSort = $("smartColorSort").value === "code" ? "code" : "usage";
       renderSmartColorList();
@@ -3708,8 +3844,9 @@
     function changePreviewZoom(delta) {
       if (!state.pattern) return;
       if (state.previewZoom <= 0) state.previewZoom = 1;
-      const centerX = previewStage.clientWidth / 2;
-      const centerY = previewStage.clientHeight / 2;
+      const viewport = previewViewportMetrics();
+      const centerX = viewport.left + viewport.width / 2;
+      const centerY = viewport.top + viewport.height / 2;
       const adjustedDelta = state.previewZoom <= .4 ? Math.sign(delta) * .05 : delta;
       setPreviewZoom(state.previewZoom + adjustedDelta, centerX, centerY);
     }
@@ -3726,34 +3863,59 @@
 
     function fitPreviewZoom() {
       if (!state.pattern || !canvas.width) return;
-      const availableWidth = Math.max(240, (previewStage.clientWidth || window.innerWidth) - 36);
-      const availableHeight = Math.max(300, (previewStage.clientHeight || 560) - 36);
+      const viewport = previewViewportMetrics();
+      const availableWidth = Math.max(120, viewport.width - 24);
+      const availableHeight = Math.max(120, viewport.height - 24);
       state.previewZoom = Math.max(.05, Math.min(1, availableWidth / canvas.width, availableHeight / canvas.height));
       state.previewOffsetX = 0;
       state.previewOffsetY = 0;
       updatePreviewZoom();
+      state.previewOffsetY = previewOffsetLimits().y / 2;
+      applyPreviewOffsets();
       previewStage.scrollTo({ left: 0, top: 0, behavior: "smooth" });
     }
 
-    function setPreviewZoom(nextZoom, focusX, focusY) {
+    function previewViewportMetrics() {
+      const style = getComputedStyle(previewStage);
+      const left = parseFloat(style.paddingLeft || 0);
+      const right = parseFloat(style.paddingRight || 0);
+      const top = parseFloat(style.paddingTop || 0);
+      const bottom = parseFloat(style.paddingBottom || 0);
+      return {
+        left,
+        top,
+        width: Math.max(0, previewStage.clientWidth - left - right),
+        height: Math.max(0, previewStage.clientHeight - top - bottom)
+      };
+    }
+
+    function setPreviewZoom(nextZoom, focusX, focusY, fixedAnchorX = null, fixedAnchorY = null) {
       if (!state.pattern || !canvas.width) return;
-      const previousZoom = state.previewZoom > 0 ? state.previewZoom : 1;
+      const stageRect = previewStage.getBoundingClientRect();
+      const before = canvas.getBoundingClientRect();
+      const absoluteFocusX = stageRect.left + focusX;
+      const absoluteFocusY = stageRect.top + focusY;
+      const anchorX = fixedAnchorX == null ? Math.max(0, Math.min(1, (absoluteFocusX - before.left) / Math.max(1, before.width))) : fixedAnchorX;
+      const anchorY = fixedAnchorY == null ? Math.max(0, Math.min(1, (absoluteFocusY - before.top) / Math.max(1, before.height))) : fixedAnchorY;
       const zoom = Math.max(.05, Math.min(4, nextZoom));
-      const contentX = (previewStage.scrollLeft + focusX) / previousZoom;
-      const contentY = (previewStage.scrollTop + focusY) / previousZoom;
       state.previewZoom = zoom;
       updatePreviewZoom();
-      previewStage.scrollLeft = Math.max(0, contentX * zoom - focusX);
-      previewStage.scrollTop = Math.max(0, contentY * zoom - focusY);
+      const after = canvas.getBoundingClientRect();
+      const deltaX = absoluteFocusX - (after.left + anchorX * after.width);
+      const deltaY = absoluteFocusY - (after.top + anchorY * after.height);
+      const limits = previewOffsetLimits();
+      if (limits.x > 0) state.previewOffsetX += deltaX;
+      else previewStage.scrollLeft = Math.max(0, previewStage.scrollLeft - deltaX);
+      if (limits.y > 0) state.previewOffsetY += deltaY;
+      else previewStage.scrollTop = Math.max(0, previewStage.scrollTop - deltaY);
+      applyPreviewOffsets();
     }
 
     function previewOffsetLimits() {
-      const style = getComputedStyle(previewStage);
-      const availableWidth = Math.max(0, previewStage.clientWidth - parseFloat(style.paddingLeft || 0) - parseFloat(style.paddingRight || 0));
-      const availableHeight = Math.max(0, previewStage.clientHeight - parseFloat(style.paddingTop || 0) - parseFloat(style.paddingBottom || 0));
+      const viewport = previewViewportMetrics();
       return {
-        x: Math.max(0, (availableWidth - canvas.offsetWidth) / 2),
-        y: Math.max(0, availableHeight - canvas.offsetHeight)
+        x: Math.max(0, (viewport.width - canvas.offsetWidth) / 2),
+        y: Math.max(0, viewport.height - canvas.offsetHeight)
       };
     }
 
@@ -3804,12 +3966,14 @@
         });
         const center = previewPointerCenter();
         const zoom = state.previewZoom > 0 ? state.previewZoom : 1;
+        const stageRect = previewStage.getBoundingClientRect();
+        const canvasRect = canvas.getBoundingClientRect();
         state.previewGesture = {
           type: "pinch",
           distance: previewPointerDistance(),
           zoom,
-          contentX: (previewStage.scrollLeft + center.x) / zoom,
-          contentY: (previewStage.scrollTop + center.y) / zoom
+          anchorX: Math.max(0, Math.min(1, (stageRect.left + center.x - canvasRect.left) / Math.max(1, canvasRect.width))),
+          anchorY: Math.max(0, Math.min(1, (stageRect.top + center.y - canvasRect.top) / Math.max(1, canvasRect.height)))
         };
         previewStage.classList.add("dragging");
       }
@@ -3824,10 +3988,13 @@
         const distance = previewPointerDistance();
         const center = previewPointerCenter();
         if (state.previewGesture.distance > 0) {
-          state.previewZoom = Math.max(.05, Math.min(4, state.previewGesture.zoom * distance / state.previewGesture.distance));
-          updatePreviewZoom();
-          previewStage.scrollLeft = Math.max(0, state.previewGesture.contentX * state.previewZoom - center.x);
-          previewStage.scrollTop = Math.max(0, state.previewGesture.contentY * state.previewZoom - center.y);
+          setPreviewZoom(
+            state.previewGesture.zoom * distance / state.previewGesture.distance,
+            center.x,
+            center.y,
+            state.previewGesture.anchorX,
+            state.previewGesture.anchorY
+          );
         }
       } else if (state.previewPointers.size === 1 && state.previewGesture.type === "pan") {
         const limits = previewOffsetLimits();
@@ -6214,6 +6381,9 @@
       if (!state.smartBoard.editing) {
         state.smartBoard.editPointers.clear();
         state.smartBoard.editGesture = null;
+        const stage = smartBoardView.querySelector(".smart-board-stage");
+        stage.scrollLeft = 0;
+        stage.scrollTop = 0;
       }
       smartBoardView.classList.toggle("editing-board", state.smartBoard.editing);
       const modeBindings = [
@@ -7153,6 +7323,64 @@
       }, 140);
     }
 
+    function openExternalUrl(url) {
+      if (!/^https:\/\//i.test(String(url || ""))) return;
+      if (window.AndroidBridge && typeof window.AndroidBridge.openExternal === "function") {
+        window.AndroidBridge.openExternal(url);
+        return;
+      }
+      const opened = window.open(url, "_blank", "noopener,noreferrer");
+      if (!opened) location.href = url;
+    }
+
+    function openQrPreview(card) {
+      const dialog = $("qrPreviewDialog");
+      $("qrPreviewTitle").textContent = card.dataset.qrTitle || "赞赏码";
+      const image = $("qrPreviewImage");
+      if (/^https:\/\//i.test(card.dataset.qrSrc || "")) image.crossOrigin = "anonymous";
+      else image.removeAttribute("crossorigin");
+      image.src = card.dataset.qrSrc || "";
+      image.alt = `${card.dataset.qrTitle || "赞赏"}二维码`;
+      dialog.dataset.qrFile = card.dataset.qrFile || "爱拼豆-赞赏码.jpg";
+      dialog.dataset.qrAsset = card.dataset.qrAsset || "";
+      showFixedDialog(dialog);
+    }
+
+    async function saveQrPreviewImage() {
+      const image = $("qrPreviewImage");
+      const dialog = $("qrPreviewDialog");
+      const fileName = dialog.dataset.qrFile || "爱拼豆-赞赏码.jpg";
+      const assetName = dialog.dataset.qrAsset || "";
+      if (assetName && window.AndroidBridge && typeof window.AndroidBridge.saveAssetImageToGallery === "function") {
+        window.AndroidBridge.saveAssetImageToGallery(assetName, fileName, "image/jpeg");
+        return;
+      }
+      if (!image.complete || !image.naturalWidth || !image.naturalHeight) {
+        showToast("赞赏码图片尚未加载完成");
+        return;
+      }
+      try {
+        let href = image.currentSrc || image.src;
+        let revoke = false;
+        if (/^https:\/\//i.test(href)) {
+          const response = await fetch(href, { mode: "cors" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          href = URL.createObjectURL(await response.blob());
+          revoke = true;
+        }
+        const link = document.createElement("a");
+        link.href = href;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        if (revoke) window.setTimeout(() => URL.revokeObjectURL(href), 1000);
+        showToast("赞赏码已保存到本地");
+      } catch (error) {
+        showToast("赞赏码保存失败，请长按图片保存");
+      }
+    }
+
     function syncWorkspaceIdentity() {
       $("workspaceTitle").textContent = projectName.value.trim() || "未命名图纸";
     }
@@ -7380,15 +7608,47 @@
       dialog.scrollTop = 0;
       const content = dialog.querySelector(".blank-dialog-body");
       if (content) content.scrollTop = 0;
+      modalDialogStack = modalDialogStack.filter((item) => item !== dialog && item.open);
+      modalDialogStack.push(dialog);
       dialog.showModal();
     }
 
     function syncFixedDialogState() {
+      modalDialogStack = modalDialogStack.filter((dialog) => dialog.open);
       if (document.querySelector("dialog[open]")) return;
       document.body.classList.remove("modal-open");
       document.body.style.top = "";
       window.scrollTo({ top: modalPageScrollY, left: 0, behavior: "auto" });
     }
+
+    function handleSystemBack() {
+      modalDialogStack = modalDialogStack.filter((dialog) => dialog.open);
+      const dialog = modalDialogStack[modalDialogStack.length - 1] || Array.from(document.querySelectorAll("dialog[open]")).pop();
+      if (dialog) {
+        if (dialog.id === "appMessageDialog") closeAppMessage(false);
+        else dialog.close();
+        return true;
+      }
+      const menu = $("workspaceMenuPopover");
+      if (menu && !menu.hidden) {
+        setWorkspaceMenu(false);
+        return true;
+      }
+      if (state.advancedCrop.open) {
+        closeAdvancedCrop(false);
+        return true;
+      }
+      if (state.smartBoard.open) {
+        if (state.smartBoard.locked) {
+          showToast("已锁定，向右滑动锁控件解锁后才能返回");
+          return true;
+        }
+        closeSmartBoard(false);
+        return true;
+      }
+      return false;
+    }
+    window.handleSystemBack = handleSystemBack;
 
     function appAlert(message, title = "提示") {
       return showAppMessage(title, message, false);
